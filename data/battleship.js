@@ -13,6 +13,18 @@ class Ship {
         : this.name === "Patrol Boat"
         ? 2
         : 0;
+    this.id =
+      this.name === "Carrier"
+        ? "c"
+        : this.name === "Battleship"
+        ? "b"
+        : this.name === "Destroyer"
+        ? "d"
+        : this.name === "Submarine"
+        ? "s"
+        : this.name === "Patrol Boat"
+        ? "p"
+        : "";
     this.hits = 0;
     this.sunk = false;
   }
