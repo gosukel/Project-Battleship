@@ -44,11 +44,29 @@ class Gameboard {
     ];
   }
 
-  place(ship, x, y) {
-    if (!this.board[x] || !this.board[y]) return this.board;
-    for (let i = 0; i < ship.length; i++) {
-      this.board[x][y + i] = ship.id;
+  place(ship, x, y, alignment = "h") {
+    if (
+      (alignment === "h" &&
+        (!this.board[x] || !this.board[y + ship.length - 1])) ||
+      (alignment === "v" &&
+        (!this.board[x + ship.length - 1] || !this.board[y]))
+    )
+      return this.board;
+    let tempNewBoard = [...this.board];
+    if (alignment === "h") {
+      for (let i = 0; i < ship.length; i++) {
+        if (tempNewBoard[x][y + i] !== 0) return this.board;
+        tempNewBoard[x][y + i] = ship.id;
+      }
     }
+    if (alignment === "v") {
+      for (let i = 0; i < ship.length; i++) {
+        if (tempNewBoard[x + i][y] !== 0) return this.board;
+        tempNewBoard[x + i][y] = ship.id;
+      }
+    }
+    this.board = tempNewBoard;
+    // console.log(this.board);
     return this.board;
   }
 }
