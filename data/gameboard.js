@@ -69,6 +69,30 @@ class Gameboard {
     // console.log(this.board);
     return this.board;
   }
+
+  receiveAttack(x, y) {
+    let target = this.board[x][y];
+
+    // INVALID
+    //    loc = -,X (repeat target)
+    if (target === "x" || target === "-") return "invalid";
+
+    // CHECK FOR MISS
+    //    loc = 0
+    if (target === 0) {
+      this.board[x][y] = "-";
+    } else {
+      let hitShip = this.ships.filter(x => x.id === target)[0];
+      hitShip.hit();
+      this.board[x][y] = "x";
+    }
+
+    // HIT
+    //    loc = c,b,d,s,p
+
+    
+    return this.board;
+  }
 }
 
 module.exports = Gameboard;
