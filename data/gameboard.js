@@ -74,24 +74,32 @@ class Gameboard {
     let target = this.board[x][y];
 
     // INVALID
-    //    loc = -,X (repeat target)
     if (target === "x" || target === "-") return "invalid";
 
     // CHECK FOR MISS
-    //    loc = 0
     if (target === 0) {
       this.board[x][y] = "-";
     } else {
-      let hitShip = this.ships.filter(x => x.id === target)[0];
+      // HIT
+      //    loc = c,b,d,s,p
+      let hitShip = this.ships.filter((x) => x.id === target)[0];
       hitShip.hit();
       this.board[x][y] = "x";
+
+      // CHECK GAME OVER
+      if (this.isGameOver()) return "game over";
     }
 
-    // HIT
-    //    loc = c,b,d,s,p
-
-    
     return this.board;
+  }
+
+  isGameOver() {
+    for (let i = 0; i < this.ships.length; i++) {
+      if (!this.ships[i].isSunk()) {
+        return false;
+      }
+      return true;
+    }
   }
 }
 
