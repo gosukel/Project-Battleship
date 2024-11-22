@@ -76,12 +76,12 @@ class Gameboard {
     // INVALID
     if (target === "x" || target === "-") return "invalid";
 
-    // CHECK FOR MISS
+    // CHECK HIT OR MISS
     if (target === 0) {
+      // MISS
       this.board[x][y] = "-";
     } else {
       // HIT
-      //    loc = c,b,d,s,p
       let hitShip = this.ships.filter((x) => x.id === target)[0];
       hitShip.hit();
       this.board[x][y] = "x";
